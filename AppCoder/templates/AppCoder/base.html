@@ -26,14 +26,13 @@
     <!-- Encabezado -->
     <header class="bg-white border-bottom shadow-sm">
       <div class="container py-4">
-        <h1 class="h3 mb-1">Mini Blog</h1>
-        <p class="text-muted mb-0">Proyecto Django</p>
+        <h1 class="h3 mb-1">Blog</h1>
       </div>
 
       <!-- Navbar-->
       <nav class="navbar navbar-expand-lg bg-white border-top">
         <div class="container">
-          <a class="navbar-brand d-lg-none" href="#">Inicio</a>
+          <a class="navbar-brand d-lg-none" href="#"></a>
           <button
             class="navbar-toggler"
             type="button"
@@ -73,32 +72,36 @@
       </nav>
     </header>
 
-    <!-- Mensajes (opcional, si usás framework de mensajes) -->
-    <div class="container mt-3">
-      {% if messages %} {% for message in messages %}
-      <div
-        class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show"
-        role="alert"
-      >
-        {{ message }}
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="alert"
-          aria-label="Cerrar"
-        ></button>
-      </div>
-      {% endfor %} {% endif %}
-    </div>
-
     <!-- Contenido principal -->
     <main class="container py-4">
       {% block content %}{% endblock content %}
+
+      <div class="border-top mt-4 pt-3">
+
+      <!-- Ultimos post publicados -->
+      <h3 class="h5 mb-3">Últimos posts</h3>
+      {% if posts %}
+      <div class="list-group">
+        {% for post in posts %}
+        <a href="#" class="list-group-item list-group-item-action">
+          <div class="d-flex w-100 justify-content-between">
+            <h4 class="h6 mb-1">{{ post.title }}</h4>
+            <small class="text-muted">{{ post.date|date:"d/m/Y H:i" }}</small>
+          </div>
+          <p class="mb-1 text-muted">{{ post.content|truncatechars:120 }}</p>
+          <small class="text-muted">Por {{ post.author.username }}</small>
+        </a>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="alert alert-info">
+        Todavía no hay posts. Creá el primero desde la sección Posts.
+      </div>
+      {% endif %}
     </main>
 
     <footer class="border-top py-4 mt-auto">
-      <div class="container text-center text-muted small">
-        &copy; {{ now|date:"Y" }} Mini Blog
+      <div class="container text-center text-muted small"> ____::Blog::____
       </div>
     </footer>
 

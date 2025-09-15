@@ -4,7 +4,8 @@ from .views import home, search,user_create, category_create, post_create, comme
 
 
 urlpatterns = [
-    path("", home, name="home"),
+    path("", post_create, name="home"),
+    path("home", post_create, name="home"),
     path("buscar/", search, name="search"),
     path("autor/", user_create, name="author_create"),
     path("categorias/", category_create, name="category_create"),
