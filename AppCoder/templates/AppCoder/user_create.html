@@ -1,0 +1,16 @@
+<!-- prettier-ignore -->
+{% extends "AppCoder/base.html" %} {% block title %}Nuevo autor{% endblock %}
+{%block content %}
+<h2 class="h4 mb-3">Nuevo autor</h2>
+<form
+  method="post"
+  class="card card-body shadow-sm mx-auto"
+  style="max-width: 600px"
+>
+  {% csrf_token %} {{ form.as_p }}
+  <div class="d-flex gap-2">
+    <button class="btn btn-primary">Guardar</button>
+    <a href="{% url 'home' %}" class="btn btn-outline-secondary">Cancelar</a>
+  </div>
+</form>
+{% endblock %}

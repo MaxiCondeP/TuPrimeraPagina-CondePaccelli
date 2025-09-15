@@ -1,0 +1,59 @@
+<!-- prettier-ignore -->
+
+{% extends "AppCoder/base.html" %} {% block title %}Buscar{% endblock %} {% block content %}
+<h2 class="h4 mb-3">Buscar</h2>
+<form
+  method="get"
+  class="card card-body shadow-sm mx-auto mb-4"
+  style="max-width: 700px"
+>
+  {{ form.as_p }}
+  <div class="d-flex gap-2">
+    <button class="btn btn-primary">Buscar</button>
+    <a href="{% url 'home' %}" class="btn btn-outline-secondary">Volver</a>
+  </div>
+</form>
+
+{% if results is not None %} {% if selected == "post" %} {% if results %}
+<div class="list-group">
+  {% for post in results %}
+  <div class="list-group-item">
+    <div class="d-flex w-100 justify-content-between">
+      <strong>{{ post.title }}</strong>
+      <small class="text-muted">{{ post.date|date:"d/m/Y H:i" }}</small>
+    </div>
+    <small class="text-muted">
+      Por {{ post.author.username }}{% if post.category %} — {{
+      post.category.name }}{% endif %}
+    </small>
+    <p class="mb-1 text-muted">{{ post.content|truncatechars:120 }}</p>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="alert alert-warning">Sin resultados.</div>
+{% endif %} {% elif selected == "author" %} {% if results %}
+<ul class="list-group">
+  {% for u in results %}
+  <li class="list-group-item">
+    <strong>{{ u.username }}</strong> — {{ u.name }} {{ u.surname }}
+    <div class="small text-muted">{{ u.email }}</div>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<div class="alert alert-warning">Sin resultados.</div>
+{% endif %} {% elif selected == "category" %} {% if results %}
+<ul class="list-group">
+  {% for c in results %}
+  <li class="list-group-item">
+    <strong>{{ c.name }}</strong>
+    {% if c.description %}
+    <div class="small text-muted">{{ c.description }}</div>
+    {% endif %}
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<div class="alert alert-warning">Sin resultados.</div>
+{% endif %} {% endif %} {% endif %} {% endblock %}
