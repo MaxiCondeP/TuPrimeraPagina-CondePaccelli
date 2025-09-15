@@ -41,7 +41,7 @@ class CategoryForm(forms.ModelForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ["title", "content", "author", "category"]  # categoría como FK (selector simple)
+        fields = ["title", "content", "author", "category"]  
         labels = {
             "title": "Título",
             "content": "Contenido",

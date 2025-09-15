@@ -4,13 +4,13 @@ from django.db.models import Q
 from .models import Post, User, Category
 from .forms import UserForm, CategoryForm, PostForm, CommentForm, SearchForm
 
-posts = Post.objects.select_related("author", "category").order_by("-date")[:5]
+
 def home(request):
-    
+    posts = Post.objects.select_related("author", "category").order_by("-date")[:5]
     return render(request, "AppCoder/home.html", {"posts": posts})
 
 def user_create(request):
-    
+    posts = Post.objects.select_related("author", "category").order_by("-date")[:5]
     form = UserForm(request.POST or None)
     if form.is_valid():
         form.save()
@@ -19,6 +19,7 @@ def user_create(request):
     return render(request, "AppCoder/user_create.html", {"form": form,"posts": posts })
 
 def category_create(request):
+    posts = Post.objects.select_related("author", "category").order_by("-date")[:5]
     form = CategoryForm(request.POST or None)
     if form.is_valid():
         form.save()
@@ -27,14 +28,17 @@ def category_create(request):
     return render(request, "AppCoder/category_create.html", {"form": form,"posts": posts })
 
 def post_create(request):
+    posts = Post.objects.select_related("author", "category").order_by("-date")[:5]
     form = PostForm(request.POST or None)
     if form.is_valid():
         form.save()
         messages.success(request, "Post creado con éxito.")
+        posts = Post.objects.select_related("author", "category").order_by("-date")[:5]
         return redirect("home")
     return render(request, "AppCoder/post_create.html", {"form": form,"posts": posts })
 
 def comment_create(request):
+    posts = Post.objects.select_related("author", "category").order_by("-date")[:5]
     form = CommentForm(request.POST or None)
     if form.is_valid():
         form.save()
@@ -43,6 +47,7 @@ def comment_create(request):
     return render(request, "AppCoder/comment_create.html", {"form": form,"posts": posts })
 
 def search(request):
+    posts = Post.objects.select_related("author", "category").order_by("-date")[:5]
     form = SearchForm(request.GET or None)
     results, selected = None, None
     if form.is_valid():
